@@ -9,22 +9,22 @@ public class Dns_cliente {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try{
-			DatagramSocket client=new DatagramSocket();
+			DatagramSocket cliente=new DatagramSocket();
 			InetAddress addr=InetAddress.getByName("127.0.0.1");
 
 			byte[] sendbyte=new byte[1024];
 			byte[] receivebyte=new byte[1024];
 			BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Enter the DOMAIN NAME or IP adress:");
+			System.out.println("Entre com o NOME DO DOMÌNIO ou um ENDEREÇO IP:");
 			String str=in.readLine();
 			sendbyte=str.getBytes();
 			DatagramPacket sender=new DatagramPacket(sendbyte,sendbyte.length,addr,1309);
-			client.send(sender);
+			cliente.send(sender);
 			DatagramPacket receiver=new DatagramPacket(receivebyte,receivebyte.length);
-			client.receive(receiver);
+			cliente.receive(receiver);
 			String s=new String(receiver.getData());
-			System.out.println("IP address or DOMAIN NAME: "+s.trim());   
-			client.close();
+			System.out.println("Endereço IP ou Nome do Domínio: "+s.trim());   
+			cliente.close();
         }
         catch(Exception e){
         	System.out.println(e);
