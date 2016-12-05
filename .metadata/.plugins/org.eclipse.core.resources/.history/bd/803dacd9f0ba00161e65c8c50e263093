@@ -1,0 +1,49 @@
+package DNS;
+
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class Dns_servidor {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try
+        {
+			DatagramSocket servidor=new DatagramSocket(53); //Cria um socket para recepção na porta 53
+            while(true){   	
+            	byte[] sendbyte=new byte[1024];
+                byte[] receivebyte=new byte[1024];
+                DatagramPacket receiver=new DatagramPacket(receivebyte,receivebyte.length);
+                servidor.receive(receiver);
+                String str=new String(receiver.getData());
+                String s=str.trim();
+                //System.out.println(s);
+                InetAddress addr=receiver.getAddress();
+                int port=receiver.getPort();
+                String ip[]={"10.14.1.1","10.14.1.2","10.14.1.3"};
+                String name[]={"www.google.com","www.fb.com","www.ufpa.br"};
+                
+                for(int i=0;i<ip.length;i++){
+                	if(s.equals(ip[i])){
+                		sendbyte=name[i].getBytes();
+                        DatagramPacket sender=new DatagramPacket(sendbyte,sendbyte.length,addr,port);
+                        servidor.send(sender);
+                        break;
+                	}
+                    else if(s.equals(name[i])){
+                    	sendbyte=ip[i].getBytes();
+                    	DatagramPacket sender=new DatagramPacket(sendbyte,sendbyte.length,addr,port);
+                    	servidor.send(sender);
+                    	break;
+                    }
+                                           
+                }         
+                break;
+            }
+        }
+        catch(Exception e){
+        	System.out.println(e);
+        }
+	}
+}

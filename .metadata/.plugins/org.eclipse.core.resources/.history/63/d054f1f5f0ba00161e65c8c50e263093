@@ -10,7 +10,7 @@ class dns
 	{
 		try
 		{
-			InetAddress[] address=InetAddress.getAllByName("127.0.0.1");
+			InetAddress[] address=InetAddress.getAllByName("fb.com");
 			for(int j=0;j<address.length;j++)
 			System.out.println(address[j]);
 		}
